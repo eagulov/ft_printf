@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:39:20 by eagulov           #+#    #+#             */
-/*   Updated: 2019/03/18 19:08:24 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/03/20 13:05:49 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 int	main()
 {
-	ft_printf("nu 4to, kak ti tam?\n" "allo\n"     "kak to tak\n");
+	ft_printf("%d", 3);
 	return (0);
 }

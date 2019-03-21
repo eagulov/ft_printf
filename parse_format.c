@@ -5,45 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/18 15:30:49 by eagulov           #+#    #+#             */
-/*   Updated: 2019/03/18 19:05:32 by eagulov          ###   ########.fr       */
+/*   Created: 2019/03/20 19:24:17 by eagulov           #+#    #+#             */
+/*   Updated: 2019/03/20 21:10:08 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		write_buf(const char *s, int len)
+void	parse_flags(const char *format, t_arg *args)
 {
-	write(1, s, len);
-	return (len);
-}
+	char	*flag;
 
-int		parse_inner(const char *format, va_list list)
-{
-	char	*str;
-
-	if (*format == 's')
+	flag = *format;
+	while (*flag == ' ' || *flag == '#' || *flag == '0'
+						|| *flag == '-' || *flag == '+')
 	{
-		str = va_arg(list, char *);
-		write_buf(str, ft_strlen(str));
+		if (*flag == ' ')
+			args->flag.space = true;
+		if (*flag == '#')
+			args->flag.hash = true;
+		if (*flag == '0')
+			args->flag.zero = true;
+		if (*flag == '-')
+			args->flag.left_jstfed = true;
+		if (*flag == '+')
+			args->flag.force_sign = true;
+		flag++;
 	}
-	return (0);
-}
-
-int		parse_format(const char *format, va_list list)
-{
-	char	*cur_chr;
-	int		res;
-
-	res = 0;
-	while ((cur_chr = ft_strchr(format, '%')))
-	{
-		res += write_buf(format, cur_chr - format);
-		format = cur_chr + 1;
-		if (*format)
-			res += parse_inner(format, list);
-	}
-	if (*format)
-		res += write_buf(format, ft_strlen(format));
-	return (res);
+	(*format) = (flag == *format) ? *format : flag;
 }
