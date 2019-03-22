@@ -6,13 +6,47 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 19:24:17 by eagulov           #+#    #+#             */
-/*   Updated: 2019/03/20 21:10:08 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/03/21 17:45:39 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	parse_flags(const char *format, t_arg *args)
+void	parse_precision(char **format, t_arg *args, va_list *list)
+{
+	char	*precision;
+
+	precision = *format;
+	if (*precision != '.')
+		return ;
+	else
+		precision++;
+	while ((precision >= '0' && precision <= '9')
+			|| precision == '+' || precision == '-')
+		precision++;
+}
+
+
+
+
+void	parse_width(char **format, t_arg *args, va_list *list)
+{
+	char	*width;
+
+	width = *format;
+	if (*width == '*')
+	{
+		args->width = va_arg(*list, int);
+		width++;
+	}
+	else
+		args->width = ft_atoi(*format);
+	while (*width >= '0' && *width <= '9')
+		width++;
+	(*format) = width;
+}
+
+void	parse_flags(char **format, t_arg *args)
 {
 	char	*flag;
 
@@ -32,5 +66,5 @@ void	parse_flags(const char *format, t_arg *args)
 			args->flag.force_sign = true;
 		flag++;
 	}
-	(*format) = (flag == *format) ? *format : flag;
+	(*format) = flag;
 }
