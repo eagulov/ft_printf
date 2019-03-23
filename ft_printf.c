@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:39:46 by eagulov           #+#    #+#             */
-/*   Updated: 2019/03/21 12:42:25 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/03/22 16:32:44 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int		ft_printf(const char *format, ...)
 
 	va_start(list, format);
 	copy = ft_strdup(format);
-	ret_bytes = check_format(copy, list);
+	ret_bytes = check_format(copy, &list);
 	va_end(list);
 	free(copy);
 	return (ret_bytes);

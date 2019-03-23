@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 15:30:49 by eagulov           #+#    #+#             */
-/*   Updated: 2019/03/21 16:29:58 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/03/22 19:05:07 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,38 +53,33 @@ t_arg		*my_argnew(void)
 // 	return (res);
 // }
 
-int		parse_format(char *format, va_list list)
+int		parse_format(char **format, va_list *list)
 {
 	t_arg	*args;
 
-	if (list)
-	{
-		;
-	}
 	args = my_argnew();
-	parse_flags(&format, args);
-	parse_width(&format, args, list);
-	parse_precision(&format, args, list);
-	// parse_length(format, args);
-	// parse_specifier(format, args);
+	parse_flags(format, args);
+	parse_width(format, args, list);
+	parse_precision(format, args, list);
+	parse_length(format, args);
+	parse_specifier(format, args);
 	return (0);
 }
 
-int		check_format(char *c_format, va_list list)
+int		check_format(char *format, va_list *list)
 {
-	char	*cur_chr;
+	char	*cur_char;
 	int		res;
 
 	res = 0;
-	while ((cur_chr = ft_strchr(c_format, '%')))
+	while ((cur_char = ft_strchr(format, '%')))
 	{
-		res += write_buf(c_format, cur_chr - c_format);
-		c_format = cur_chr + 1;
-		if (*c_format)
-			res += parse_format(c_format, list);
-		c_format += 1;
+		res += write_buf(format, cur_char - format);
+		format = cur_char + 1;
+		if (*format)
+			res += parse_format(&format, list);
 	}
-	if (*c_format)
-		res += write_buf(c_format, ft_strlen(c_format));
+	if (*format)
+		res += write_buf(format, ft_strlen(format));
 	return (res);
 }
