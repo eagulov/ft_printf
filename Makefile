@@ -6,7 +6,7 @@
 #    By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/16 13:26:18 by eagulov           #+#    #+#              #
-#    Updated: 2019/03/21 12:55:43 by eagulov          ###   ########.fr        #
+#    Updated: 2019/06/03 19:08:11 by eagulov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ DAMN = \033[0;92m
 all : $(EXE)
 
 $(EXE): $(NAME)
-	@gcc -Wall -Werror -Wextra -g main.c $(NAME) $(LIBFT) -o $@
+	gcc -Wall -Werror -Wextra -g main.c $(NAME) $(LIBFT) -o $@ -I.
 
 
 $(NAME) : $(LIBFT) $(OBJ)

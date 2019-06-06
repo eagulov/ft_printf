@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 15:30:49 by eagulov           #+#    #+#             */
-/*   Updated: 2019/03/22 19:05:07 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/04 13:04:01 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,62 +24,56 @@ t_arg		*my_argnew(void)
 
 	new = (t_arg *)ft_memalloc(sizeof(t_arg));
 	new->width = 0;
-	new->precision = 0;
+	new->precisn = 0;
 	new->length = ft_strnew(0);
 	return (new);
 }
 
-// int		parse_format(const char *format, va_list list)
-// {
-// 	char	*str;
-// 	int		num;
-// 	int		res;
+int		construct(char **dest, int destlen, char *orig, int size)
+{
+	int		length;
+	char	*tmp;
 
-// 	if (*format == 's')
-// 	{
-// 		str = va_arg(list, char *);
-// 		res = write_buf(str, ft_strlen(str));
-// 	}
-// 	if (*format == 'd')
-// 	{
-// 		num = va_arg(list, int);
-// 		str = ft_itoa(num);
-// 		res = write_buf(str, ft_strlen(str));
-// 	}
-// 	if (*format == ' ')
-// 	{
-		
-// 	}
-// 	return (res);
-// }
+	length = destlen + size;
+	tmp = ft_strnew(length);
+	ft_strncpy(tmp, *dest, destlen);
+	ft_strncpy(tmp + destlen, orig, size);
+	ft_memdel((void **)dest);
+	*dest = tmp;
+	return (length);
+}
 
-int		parse_format(char **format, va_list *list)
+int		parse_format(char **format, va_list *list, char **finalstr,
+														int finallen)
 {
 	t_arg	*args;
 
 	args = my_argnew();
 	parse_flags(format, args);
 	parse_width(format, args, list);
-	parse_precision(format, args, list);
+	parse_precisn(format, args, list);
 	parse_length(format, args);
 	parse_specifier(format, args);
-	return (0);
+	return ((logic(list, args, finalstr, finallen)));
 }
 
 int		check_format(char *format, va_list *list)
 {
 	char	*cur_char;
 	int		res;
+	char	*finalstr;
 
 	res = 0;
+	finalstr = NULL;
 	while ((cur_char = ft_strchr(format, '%')))
 	{
-		res += write_buf(format, cur_char - format);
+		res += construct(&finalstr, res, format, cur_char - format);
 		format = cur_char + 1;
 		if (*format)
-			res += parse_format(&format, list);
+			res += parse_format(&format, list, &finalstr, res);
 	}
 	if (*format)
-		res += write_buf(format, ft_strlen(format));
+		res = construct(&finalstr, res, format, ft_strlen(format));
+	write_buf(finalstr, res);
 	return (res);
 }

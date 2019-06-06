@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 14:19:42 by eagulov           #+#    #+#             */
-/*   Updated: 2019/03/07 15:09:24 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/05/27 08:28:28 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <sys/uio.h>
 # include <sys/types.h>
+# include <stdarg.h>
 
 # define BUFF_SIZE 32
 # define DESC 10240
@@ -36,6 +37,15 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+int					my_isletter(char c);
+int					my_iscapital(char c);
+char				*my_strupper(char *str);
+char				*my_dectooctal(unsigned long long int num);
+char				*my_strrev(const char *str);
+char				*my_dectohex(unsigned long long int num);
+char				*my_get_binary(unsigned char octet);
+char				*my_strmjoin(int num, ...);
+char				*my_ltoa(unsigned long n, int base);
 int					my_strchri(char *s, char c);
 void				my_lstadd_end(t_list **alst, t_list *new);
 int					my_abs(int i);

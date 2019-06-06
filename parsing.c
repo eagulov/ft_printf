@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 19:24:17 by eagulov           #+#    #+#             */
-/*   Updated: 2019/03/22 19:10:48 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/05/25 19:33:35 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	parse_length(char **format, t_arg *args)
 	args->length = ft_strsub(first_length, 0, *format - first_length);
 }
 
-void	parse_precision(char **format, t_arg *args, va_list *list)
+void	parse_precisn(char **format, t_arg *args, va_list *list)
 {
 	if (**format != '.')
 		return ;
@@ -37,11 +37,11 @@ void	parse_precision(char **format, t_arg *args, va_list *list)
 		(*format)++;
 	if (**format == '*')
 	{
-		args->precision = va_arg(*list, int);
+		args->precisn = va_arg(*list, int);
 		(*format)++;
 	}
 	else
-		args->precision = ft_atoi(*format);
+		args->precisn = ft_atoi(*format);
 	while ((**format >= '0' && **format <= '9')
 			|| **format == '+' || **format == '-')
 		(*format)++;
