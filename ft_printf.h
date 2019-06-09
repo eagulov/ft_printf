@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 13:18:25 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/05 23:20:47 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/08 17:35:19 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,16 @@ typedef struct		s_arg
 	t_value			val;
 }					t_arg;
 
+typedef	struct		s_metadata
+{
+	int				actlen;
+	int				isneg;
+	int				zeros;
+	char			*value;
+}					t_meta;
+
+
+
 typedef char* (*t_func)(t_arg*, va_list*, int *len);
 
 int					ft_printf(const char *format, ...);
@@ -60,6 +70,7 @@ void				parse_length(char **format, t_arg *args);
 void				parse_specifier(char **format, t_arg *args);
 int					logic(va_list *list, t_arg *args, char **finalstr,
 																int finallen);
+char				*pf_get_float(t_arg *args, va_list *list, int *len);
 char				*pf_get_number(t_arg *args, va_list *list, int *len);
 char				*pf_get_unumber(t_arg *args, va_list *list, int *len);
 char				*pf_get_char(t_arg *args, va_list *list, int *len);

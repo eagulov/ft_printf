@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 19:24:17 by eagulov           #+#    #+#             */
-/*   Updated: 2019/05/25 19:33:35 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/08 18:59:59 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 void	parse_specifier(char **format, t_arg *args)
 {
 	args->specifier = **format;
+	if (args->specifier == 'f' && args->precisn == -1)
+		args->precisn = 6;
 	(*format)++;
 }
 
@@ -32,7 +34,10 @@ void	parse_length(char **format, t_arg *args)
 void	parse_precisn(char **format, t_arg *args, va_list *list)
 {
 	if (**format != '.')
+	{
+		args->precisn = -1;
 		return ;
+	}
 	else
 		(*format)++;
 	if (**format == '*')

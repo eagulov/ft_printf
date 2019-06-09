@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 14:19:42 by eagulov           #+#    #+#             */
-/*   Updated: 2019/05/27 08:28:28 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/08 19:08:09 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,17 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+int					my_nbsize(long long int number);
+char				*my_ftoa(long double number, int precisn);
+long				my_power(long a, long b);
+char				*my_strlower(char *str);
 int					my_isletter(char c);
 int					my_iscapital(char c);
 char				*my_strupper(char *str);
 char				*my_dectooctal(unsigned long long int num);
 char				*my_strrev(const char *str);
 char				*my_dectohex(unsigned long long int num);
-char				*my_get_binary(unsigned char octet);
+char				*my_get_binary(unsigned long octet);
 char				*my_strmjoin(int num, ...);
 char				*my_ltoa(unsigned long n, int base);
 int					my_strchri(char *s, char c);

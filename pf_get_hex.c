@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 11:49:58 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/04 09:30:44 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/07 00:11:41 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char		*pf_get_hex(t_arg *args, va_list *list, int *len)
 		pf_fill_data(answer, args, zeros, str);
 	else
 		pf_fill_data(answer + (*len - actlen), args, zeros, str);
-	// do i need to delete a memory (str)? 
+	ft_strdel(&str);
 	return (answer);
 }
 

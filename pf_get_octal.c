@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 09:11:48 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/05 23:21:10 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/07 00:12:34 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ char			*pf_get_octal(t_arg *args, va_list *list, int *len)
 		pf_fill_data(answer, args, zeros, str);
 	else
 		pf_fill_data(answer + (*len - actlen), args, zeros, str);
+	ft_strdel(&str);
 	return (answer);
 }
 
-
-char		*pf_octal_wrapper(t_arg *args, va_list *list, int *len)
+char			*pf_octal_wrapper(t_arg *args, va_list *list, int *len)
 {
 	return (my_strupper(pf_get_octal(args, list, len)));
 }

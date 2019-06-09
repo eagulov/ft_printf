@@ -6,68 +6,42 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 20:23:49 by eagulov           #+#    #+#             */
-/*   Updated: 2019/05/27 18:32:46 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/07 17:13:23 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char		*get_precisn(t_arg *args)
+static char		*fill_data(t_arg *args, t_meta m, int size)
 {
-	char	*precisn;
+	char	*answer;
+	int		i;
 
-	if (args->precisn < args->len || args->precisn == 0)
-		precisn = ft_strdup("");
-	else
-	{
-		args->precisn -= args->len;
-		precisn = ft_strnew(args->precisn);
-		ft_memset(precisn, '0', args->precisn);
-	}
-	return (precisn);
+	i = 0;
+	answer = ft_strnew(size);
+	answer = ft_memset(answer, ' ', size);
+	i = args->flag.left_jstfed ? 0 : size - (m.actlen + m.zeros);
+	while (m.zeros--)
+		answer[i++] = '0';
+	ft_memcpy(answer + i, m.isneg ? m.value + 1 : m.value, \
+				m.isneg ? m.actlen - 1 : m.actlen);
+	return (answer);
 }
 
-static char		*get_width(t_arg *args, int val)
+char			*pf_get_unumber(t_arg *ar, va_list *list, int *len)
 {
-	char	*width;
+	char	*answer;
+	t_meta	mt;
 
-	if (args->width < val)
-		width = ft_strdup("");
-	else
-	{
-		width = ft_strnew(args->width - val);
-		if (args->flag.zero && args->precisn == 0 && !args->flag.left_jstfed)
-			ft_memset(width, '0', args->width - val);
-		else
-			ft_memset(width, ' ', args->width - val);
-	}
-	return (width);
-}
-
-char			*pf_get_unumber(t_arg *args, va_list *list, int *len)
-{
-	char	*precisn;
-	char	*width;
-	char	*value;
-	char	*res;
-
-	conversion_uint(args, list);
-	value = my_ltoa(args->val.uint, 10);
-	*len = ft_strlen(value);
-	precisn = get_precisn(args);
-	*len = (args->precisn == -1 || args->precisn == -2) ? 0 : *len;
-	width = get_width(args, ft_strlen(precisn) + *len +
-										((args->sign != '\0') ? 1 : 0));
-	if (args->flag.left_jstfed)
-		res = my_strmjoin(3, precisn, value, width);
-	else if ((args->precisn == -2 || args->precisn == -1) &&
-													args->val.uint == 0)
-		res = my_strmjoin(2, width, precisn);
-	else
-		res = my_strmjoin(3, width, precisn, value);
-	*len = ft_strlen(res);
-	ft_memdel((void **)&precisn);
-	ft_memdel((void **)&width);
-	ft_memdel((void **)&value);
-	return (res);
+	mt.value = my_ltoa(va_arg(*list, unsigned long), 10);
+	mt.isneg = mt.value[0] == '-' ? 1 : 0;
+	mt.actlen = ft_strlen(mt.value);
+	mt.zeros = ar->precisn < mt.actlen ? 0 : ar->precisn - mt.actlen;
+	*len = ar->width > (mt.actlen + mt.zeros) ? ar->width \
+						: (mt.actlen + mt.zeros);
+	if (ar->flag.zero && !ar->flag.left_jstfed)
+		mt.zeros = *len - mt.actlen;
+	answer = fill_data(ar, mt, *len);
+	ft_strdel(&mt.value);
+	return (answer);
 }

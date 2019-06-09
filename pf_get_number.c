@@ -6,92 +6,48 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/23 18:16:17 by eagulov           #+#    #+#             */
-/*   Updated: 2019/05/27 18:31:32 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/07 17:07:55 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void		get_sign(t_arg *args)
+static char		*fill_data(t_arg *args, t_meta m, int size)
 {
-	if (args->flag.force_sign)
-		args->sign = '+';
-	else if (args->flag.space)
-		args->sign = ' ';
-	else if (args->val.sint < 0)
-	{
-		args->sign = '-';
-		args->val.sint *= -1;
-	}
+	char	*answer;
+	int		i;
+
+	i = 0;
+	answer = ft_strnew(size);
+	answer = ft_memset(answer, ' ', size);
+	i = args->flag.left_jstfed ? 0 : size - (m.actlen + m.zeros);
+	if (m.isneg)
+		answer[i++] = '-';
+	else if (args->flag.force_sign || args->flag.space)
+		answer[i++] = args->flag.force_sign ? '+' : ' ';
+	while (m.zeros--)
+		answer[i++] = '0';
+	ft_memcpy(answer + i, m.isneg ? m.value + 1 : m.value, \
+				m.isneg ? m.actlen - 1 : m.actlen);
+	return (answer);
 }
 
-static char		*get_precisn(t_arg *args)
+char			*pf_get_number(t_arg *ar, va_list *list, int *len)
 {
-	char	*precisn;
-	int		pre_cpy;
+	char	*answer;
+	t_meta	mt;
 
-	pre_cpy = args->precisn;
-	if (args->precisn < args->len || args->precisn == 0)
-		precisn = ft_strdup("");
-	else
-	{
-		pre_cpy -= args->len;
-		precisn = ft_strnew(pre_cpy);
-		ft_memset(precisn, '0', pre_cpy);
-	}
-	return (precisn);
-}
-
-static char		*get_width(t_arg *args, int val)
-{
-	char *width;
-
-	if (args->width < val)
-		width = ft_strdup("");
-	else
-	{
-		width = ft_strnew(args->width - val);
-		if ((args->flag.zero && args->precisn == 0) &&
-											!args->flag.left_jstfed)
-			ft_memset(width, '0', args->width - val);
-		else
-			ft_memset(width, ' ', args->width - val);
-	}
-	return (width);
-}
-
-static void		pf_delextra(char **precisn, char **width, char **value)
-{
-	ft_memdel((void **)precisn);
-	ft_memdel((void **)width);
-	ft_memdel((void **)value);
-}
-
-char			*pf_get_number(t_arg *args, va_list *list, int *len)
-{
-	char	*precisn;
-	char	*width;
-	char	*value;
-	char	*res;
-
-	conversion_sint(args, list);
-	get_sign(args);
-	value = my_ltoa(args->val.sint, 10);
-	*len = ft_strlen(value);
-	precisn = get_precisn(args);
-	*len = (args->precisn == -1 || args->precisn == -2) ? 0 : *len;
-	width = get_width(args, ft_strlen(precisn) + *len +
-									((args->sign != '\0') ? 1 : 0));
-	if (args->flag.left_jstfed)
-		res = my_strmjoin(4, &args->sign, precisn, value, width);
-	else if ((args->precisn == -2 || args->precisn == -1) &&
-												args->val.sint == 0)
-		res = my_strmjoin(2, width, precisn);
-	else if (*width == ' ')
-		res = my_strmjoin(4, width, &args->sign, precisn, value);
-	else
-		res = my_strmjoin(4, &args->sign, width, precisn, value);
-	*len = ft_strlen(res);
-	pf_delextra(&precisn, &width, &value);
-	return (res);
+	mt.value = my_ltoa(va_arg(*list, long), 10);
+	mt.isneg = mt.value[0] == '-' ? 1 : 0;
+	mt.actlen = ft_strlen(mt.value);
+	mt.zeros = ar->precisn < mt.actlen ? 0 : ar->precisn - mt.actlen;
+	if (((ar->flag.force_sign || ar->flag.space) && !mt.isneg))
+		mt.actlen += 1;
+	*len = ar->width > (mt.actlen + mt.zeros) ? ar->width \
+						: (mt.actlen + mt.zeros);
+	if (ar->flag.zero && !ar->flag.left_jstfed)
+		mt.zeros = *len - mt.actlen;
+	answer = fill_data(ar, mt, *len);
+	ft_strdel(&mt.value);
+	return (answer);
 }
