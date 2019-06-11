@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 20:23:49 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/07 17:13:23 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/10 16:09:44 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char			*pf_get_unumber(t_arg *ar, va_list *list, int *len)
 	char	*answer;
 	t_meta	mt;
 
-	mt.value = my_ltoa(va_arg(*list, unsigned long), 10);
+	mt.value = my_ltoa(conversion_unsigned(ar, list), 10);
 	mt.isneg = mt.value[0] == '-' ? 1 : 0;
 	mt.actlen = ft_strlen(mt.value);
 	mt.zeros = ar->precisn < mt.actlen ? 0 : ar->precisn - mt.actlen;

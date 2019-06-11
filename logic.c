@@ -6,17 +6,11 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/23 15:07:08 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/08 19:08:43 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/10 17:10:31 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void		ft_argdelete(t_arg *args)
-{
-	ft_memdel((void **)&args->length);
-	ft_memdel((void **)&args);
-}
 
 static void		init_funcs(t_func *func)
 {
@@ -56,24 +50,17 @@ int				logic(va_list *list, t_arg *args, char **finalstr, int finallen)
 {
 	t_func	function;
 	char	*value;
-	int 	valuelen;
+	int		valuelen;
 
 	function = get_funcs(args->specifier);
 	valuelen = 0;
-	if (function) {
+	if (function)
+	{
 		value = function(args, list, &valuelen);
-		construct(finalstr, finallen, value, valuelen);
+		valuelen = construct(finalstr, finallen, value, valuelen);
 	}
-	else if (args->width != 0)
-	{
-		/* code */
-	}
-	else
-	{
-		/* code */
-	}
-	
 	ft_memdel((void **)&value);
-	ft_argdelete(args);
+	ft_memdel((void **)&args->length);
+	ft_memdel((void **)&args);
 	return (valuelen);
 }

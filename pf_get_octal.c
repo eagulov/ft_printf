@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 09:11:48 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/07 00:12:34 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/10 16:10:45 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char			*pf_get_octal(t_arg *args, va_list *list, int *len)
 	int		actlen;
 	int		zeros;
 
-	str = my_ltoa(va_arg(*list, unsigned long), 8);
+	str = my_ltoa(conversion_unsigned(args, list), 8);
 	actlen = ft_strlen(str);
 	zeros = args->precisn < actlen ? 0 : args->precisn - actlen;
 	actlen += ((args->flag.hash && !args->precisn) ? 1 : 0) + zeros;

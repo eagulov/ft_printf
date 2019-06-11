@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 14:39:20 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/08 19:26:45 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/10 17:06:11 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,47 +113,57 @@ int	main()
 	// printf("|%20.1u|\n",54654);
 	// printf("|%*.*u|\n", 6, 6, 54654);
 
-
 	// void 	*memory;
 
 	// memory = malloc(10);
 	// printf("MY RESPONSE: \n");
-	// ft_printf("|%p => %d|\n", memory, (unsigned long)memory);
+	// ft_printf("|%p => %lu|\n", memory, (unsigned long)memory);
 	// printf("\nPRINTF RESPONSE: \n");
 	// printf("|%p => %lu|\n", memory, (unsigned long)memory);
 	// ft_memdel(&memory);
 
-	// printf("MY RESPONSE: \n");
-	// ft_printf("|%10.8f|\n", 321.564);
-	// ft_printf("|%-10f|\n", 321.564);
-	// ft_printf("|%5.3f|\n",321.564);
-	// ft_printf("|%-3.10f|\n",321.564);
-	// ft_printf("|%010f|\n", 321.564);
-	// ft_printf("|%-20.10f|\n",321.564);
-	// ft_printf("|%20.1f|\n",321.564);
-	// ft_printf("|%*.*f|\n", 6, 6, 321.564);
-	// ft_printf("|%#5.0f|\n", 321.564);
-	// printf("\nPRINTF RESPONSE: \n");
-	// printf("|%10.8f|\n", 321.564);
-	// printf("|%-10f|\n", 321.564);
-	// printf("|%5.3f|\n",321.564);
-	// printf("|%-3.10f|\n",321.564);
-	// printf("|%010f|\n", 321.564);
-	// printf("|%-20.10f|\n",321.564);
-	// printf("|%20.1f|\n",321.564);
-	// printf("|%*.*f|\n", 6, 6, 321.564);
-	// printf("|%#5.0f|\n", 321.564);
-
-
-	ft_printf("|%b|\n", 42);
-	ft_printf("|%-10.10b|\n", 42);
-	ft_printf("|%5b|\n", 42);
-	ft_printf("|%3b|\n", 42);
-	ft_printf("|%20.12b|\n", 42);
-	ft_printf("|%7.3b|\n", 42);
-	ft_printf("|%-8.5b|\n", 42);
-	ft_printf("|%1b|\n", 42);
+	double e = 2.718281828;
 	
+	printf("MY RESPONSE: \n");
+	ft_printf("|%5.1f|\n", e);
+	ft_printf("|%-5.1f|\n", e);
+	ft_printf("|%+5.1f|\n",e);
+	ft_printf("|%+-5.1f|\n",e);
+	ft_printf("|%05.1f|\n", e);
+	ft_printf("|%+05.1f|\n",e);
+	ft_printf("|% 05.1f|\n",e);
+	ft_printf("|%- 5.1lf|\n", e);
+	printf("\nPRINTF RESPONSE: \n");
+	printf("|%5.1f|\n", e);
+	printf("|%-5.1f|\n", e);
+	printf("|%+5.1f|\n",e);
+	printf("|%+-5.1f|\n",e);
+	printf("|%05.1f|\n", e);
+	printf("|%+05.1f|\n",e);
+	printf("|% 05.1f|\n",e);
+	printf("|%- 5.1lf|\n", e);
+
+	// ft_printf("\nLOX\n");
+	// ft_printf("|%b|\n", 42);
+	// ft_printf("|%-10.10b|\n", 42);
+	// ft_printf("|%5b|\n", 42);
+	// ft_printf("|%3b|\n", 42);
+	// ft_printf("|%20.12b|\n", 42);
+	// ft_printf("|%7.3b|\n", 42);
+	// ft_printf("|%-8.5b|\n", 42);
+	// ft_printf("|%1b|\n", 42);
+	
+
+	printf("MY RESPONSE: \n");
+	ft_printf("|%li|\n", 5);
+	ft_printf("|%hhi|\n", 120);
+	ft_printf("|%hi|\n", 120);
+	ft_printf("|%li|\n", 123123123213);
+	printf("\nPRINTF RESPONSE: \n");
+	printf("|%li|\n", 5);
+	printf("|%hhi|\n", 120);
+	printf("|%hi|\n", 120);
+	printf("|%li|\n", 123123123213);
 
 
 	return (0);

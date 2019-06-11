@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 13:18:25 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/08 17:35:19 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/10 16:01:57 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,11 @@
 # include <stdbool.h>
 # include <wchar.h>
 
-typedef union		u_value
-{
-	char			c;
-	char			*str;
-	intmax_t		sint;
-	uintmax_t		uint;
-}					t_value;
-
+# define CONV_TO_CHR(x) x ? unsigned char : char
+# define CONV_TO_SHRT(x) x ? unsigned short : short
+# define CONV_TO_L(x) x ? unsigned long : long
+# define CONV_TO_LL(x) x ? unsigned long long : long long
+# define CONV_TO_J(x) x ? uintmax_t : intmax_t
 
 typedef struct		s_flags
 {
@@ -45,7 +42,6 @@ typedef struct		s_arg
 	char			sign;
 	int				len;
 	t_flags			flag;
-	t_value			val;
 }					t_arg;
 
 typedef	struct		s_metadata
@@ -55,8 +51,6 @@ typedef	struct		s_metadata
 	int				zeros;
 	char			*value;
 }					t_meta;
-
-
 
 typedef char* (*t_func)(t_arg*, va_list*, int *len);
 
@@ -82,8 +76,8 @@ char				*pf_get_hex(t_arg *args, va_list *list, int *len);
 char				*pf_hex_wrapper(t_arg *args, va_list *list, int *len);
 char				*pf_get_addr(t_arg *args, va_list *list, int *len);
 char				*pf_get_binary(t_arg *args, va_list *list, int *len);
-void				conversion_sint(t_arg *args, va_list *list);
-void				conversion_uint(t_arg *args, va_list *list);
+long				conversion_signed(t_arg *args, va_list *list);
+unsigned long		conversion_unsigned(t_arg *args, va_list *list);
 
 
 

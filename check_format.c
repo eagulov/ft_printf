@@ -6,26 +6,20 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 15:30:49 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/04 13:04:01 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/10 17:12:45 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int		write_buf(const char *s, int len)
-{
-	write(1, s, len);
-	return (len);
-}
-
-t_arg		*my_argnew(void)
+t_arg	*my_argnew(void)
 {
 	t_arg	*new;
 
 	new = (t_arg *)ft_memalloc(sizeof(t_arg));
 	new->width = 0;
 	new->precisn = 0;
-	new->length = ft_strnew(0);
+	new->length = NULL;
 	return (new);
 }
 
@@ -36,11 +30,12 @@ int		construct(char **dest, int destlen, char *orig, int size)
 
 	length = destlen + size;
 	tmp = ft_strnew(length);
-	ft_strncpy(tmp, *dest, destlen);
+	if (*dest)
+		ft_strncpy(tmp, *dest, destlen);
 	ft_strncpy(tmp + destlen, orig, size);
 	ft_memdel((void **)dest);
 	*dest = tmp;
-	return (length);
+	return (size);
 }
 
 int		parse_format(char **format, va_list *list, char **finalstr,
@@ -59,12 +54,12 @@ int		parse_format(char **format, va_list *list, char **finalstr,
 
 int		check_format(char *format, va_list *list)
 {
-	char	*cur_char;
-	int		res;
-	char	*finalstr;
+	char			*cur_char;
+	int				res;
+	char			*finalstr;
 
-	res = 0;
 	finalstr = NULL;
+	res = 0;
 	while ((cur_char = ft_strchr(format, '%')))
 	{
 		res += construct(&finalstr, res, format, cur_char - format);
@@ -73,7 +68,7 @@ int		check_format(char *format, va_list *list)
 			res += parse_format(&format, list, &finalstr, res);
 	}
 	if (*format)
-		res = construct(&finalstr, res, format, ft_strlen(format));
-	write_buf(finalstr, res);
+		res += construct(&finalstr, res, format, ft_strlen(format));
+	write(1, finalstr, res);
 	return (res);
 }

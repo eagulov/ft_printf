@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/23 18:16:17 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/07 17:07:55 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/10 16:25:36 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static char		*fill_data(t_arg *args, t_meta m, int size)
 	while (m.zeros--)
 		answer[i++] = '0';
 	ft_memcpy(answer + i, m.isneg ? m.value + 1 : m.value, \
-				m.isneg ? m.actlen - 1 : m.actlen);
+				m.isneg ? m.actlen - 1 : ft_strlen(m.value));
 	return (answer);
 }
 
@@ -37,7 +37,7 @@ char			*pf_get_number(t_arg *ar, va_list *list, int *len)
 	char	*answer;
 	t_meta	mt;
 
-	mt.value = my_ltoa(va_arg(*list, long), 10);
+	mt.value = my_ltoa(conversion_signed(ar, list), 10);
 	mt.isneg = mt.value[0] == '-' ? 1 : 0;
 	mt.actlen = ft_strlen(mt.value);
 	mt.zeros = ar->precisn < mt.actlen ? 0 : ar->precisn - mt.actlen;

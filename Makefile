@@ -6,7 +6,7 @@
 #    By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/16 13:26:18 by eagulov           #+#    #+#              #
-#    Updated: 2019/06/03 19:08:11 by eagulov          ###   ########.fr        #
+#    Updated: 2019/06/10 14:56:31 by eagulov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ DAMN = \033[0;92m
 all : $(EXE)
 
 $(EXE): $(NAME)
-	gcc -Wall -Werror -Wextra -g main.c $(NAME) $(LIBFT) -o $@ -I.
+	gcc -g main.c $(NAME) $(LIBFT) -o $@ -I.
+	# -Wall -Werror -Wextra 
 
 
 $(NAME) : $(LIBFT) $(OBJ)
@@ -32,7 +33,8 @@ $(LIBFT) :
 			@echo "$(DAMN)Yo, libft was compiled"
 
 %.o : %.c
-			@gcc  $< -o $@ -Wall -Wextra -Werror -g -c
+			@gcc  $< -o $@ -g -c
+			# -Wall -Wextra -Werror
 
 clean :
 			@rm -rf $(OBJ)

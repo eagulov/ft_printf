@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 19:24:17 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/08 18:59:59 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/10 16:52:09 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	parse_length(char **format, t_arg *args)
 
 	first_length = *format;
 	while (**format == 'l' || **format == 'h' ||
-			**format == 'j' || **format == 'z')
+			**format == 'j' || **format == 'z' || **format == 'L')
 		(*format)++;
 	args->length = ft_strsub(first_length, 0, *format - first_length);
 }
