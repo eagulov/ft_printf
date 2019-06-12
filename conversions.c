@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:21:56 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/10 16:09:04 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/11 12:46:01 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ long			conversion_signed(t_arg *args, va_list *list)
 		value = (intmax_t)value;
 	else if (args->length[0] == 'z')
 		value = (size_t)value;
-
 	return (value);
 }
 

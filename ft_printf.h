@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 13:18:25 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/10 16:01:57 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/11 12:46:40 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,5 @@ char				*pf_get_addr(t_arg *args, va_list *list, int *len);
 char				*pf_get_binary(t_arg *args, va_list *list, int *len);
 long				conversion_signed(t_arg *args, va_list *list);
 unsigned long		conversion_unsigned(t_arg *args, va_list *list);
-
-
 
 #endif

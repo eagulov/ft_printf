@@ -6,26 +6,24 @@
 #    By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/16 13:26:18 by eagulov           #+#    #+#              #
-#    Updated: 2019/06/10 14:56:31 by eagulov          ###   ########.fr        #
+#    Updated: 2019/06/11 15:31:39 by eagulov          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libft_printf.a
-EXE = poexali
+NAME = libftprintf.a
 SRC = $(wildcard *.c)
 LIBFT = libft/libft.a
 OBJ = $(patsubst %.c,%.o,$(wildcard *.c))
+LIBFT_OBJ = $(wildcard ./libft/*.o)
+INCLUDE = ft_printf.h
+ALL_OBJ = $(OBJ) $(LIBFT_OBJ)
 DAMN = \033[0;92m
 
-all : $(EXE)
+all : $(NAME)
 
-$(EXE): $(NAME)
-	gcc -g main.c $(NAME) $(LIBFT) -o $@ -I.
-	# -Wall -Werror -Wextra 
-
-
-$(NAME) : $(LIBFT) $(OBJ)
-			@ar rc $(NAME) $(OBJ)
+$(NAME):$(LIBFT) $(OBJ)
+			@ar rc $(NAME) $(ALL_OBJ)
+			@ranlib $(NAME)
 			@echo "$(DAMN)Daaaaamn, it's compiled"
 
 $(LIBFT) :
@@ -33,8 +31,7 @@ $(LIBFT) :
 			@echo "$(DAMN)Yo, libft was compiled"
 
 %.o : %.c
-			@gcc  $< -o $@ -g -c
-			# -Wall -Wextra -Werror
+			@gcc -c $< -o $@ -Wall -Wextra -Werror -g  -I $(INCLUDE)
 
 clean :
 			@rm -rf $(OBJ)
