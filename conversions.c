@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 11:21:56 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/11 12:46:01 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/13 16:46:32 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,38 @@
 
 long			conversion_signed(t_arg *args, va_list *list)
 {
-	long long int	value;
-
-	value = va_arg(*list, long long int);
 	if (args->length[0] == '\0')
-		return (value);
+		return (va_arg(*list, int));
 	else if (args->length[0] == 'h' && args->length[1] == 'h')
-		value = (char)value;
+		return ((char)va_arg(*list, int));
 	else if (args->length[0] == 'h')
-		value = (short int)value;
+		return ((short int)va_arg(*list, int));
+	else if (args->length[0] == 'l' && args->length[1] == 'l')
+		return ((va_arg(*list, long long int)));
 	else if (args->length[0] == 'l')
-		value = (long int)value;
+		return ((va_arg(*list, long int)));
 	else if (args->length[0] == 'j')
-		value = (intmax_t)value;
-	else if (args->length[0] == 'z')
-		value = (size_t)value;
-	return (value);
+		return (va_arg(*list, intmax_t));
+	else
+		return (va_arg(*list, size_t));
 }
 
 unsigned long	conversion_unsigned(t_arg *args, va_list *list)
 {
-	unsigned long long int	value;
-
-	value = va_arg(*list, unsigned long long int);
+	if (args->specifier == 'U')
+		return (va_arg(*list, unsigned long int));
 	if (args->length[0] == '\0')
-		return (value);
+		return (va_arg(*list, unsigned int));
 	else if (args->length[0] == 'h' && args->length[1] == 'h')
-		value = (unsigned char)value;
+		return ((unsigned char)va_arg(*list, unsigned int));
 	else if (args->length[0] == 'h')
-		value = (unsigned short int)value;
+		return ((unsigned short)va_arg(*list, unsigned int));
+	else if (args->length[0] == 'l' && args->length[1] == 'l')
+		return ((va_arg(*list, unsigned long long int)));
 	else if (args->length[0] == 'l')
-		value = (unsigned long int)value;
+		return ((va_arg(*list, unsigned long int)));
 	else if (args->length[0] == 'j')
-		value = (uintmax_t)value;
-	else if (args->length[0] == 'z')
-		value = (size_t)value;
-	return (value);
+		return (va_arg(*list, uintmax_t));
+	else
+		return (va_arg(*list, size_t));
 }

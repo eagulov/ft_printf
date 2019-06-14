@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/15 14:19:42 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/08 19:08:09 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/13 18:31:46 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define DESC 10240
 # define MAX_FD 255
 # define FD_LIMIT 4986
+# define LONGSIZE (sizeof(long) * 8 + 1)
 
 typedef struct		s_list
 {

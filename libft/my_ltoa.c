@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 12:23:39 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/03 18:12:26 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/13 18:08:52 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*my_ltoa(unsigned long n, int base)
 	while (n)
 	{
 		rem = n % base;
-		*tail-- = (char)(rem + ((9L < rem) ? ('A' - 10L) : '0'));
+		*tail-- = (char)(rem + ((9L < rem) ? ('a' - 10L) : '0'));
 		n /= base;
 		counter++;
 	}
