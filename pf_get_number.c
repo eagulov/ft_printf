@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/23 18:16:17 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/13 18:31:33 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/14 12:08:28 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ char			*pf_get_number(t_arg *ar, va_list *list, int *len)
 	num = conversion_signed(ar, list);
 	num *= (num < 0 && (mt.isneg = 1)) ? -1 : 1;
 	mt.value = my_ltoa(num, 10);
-	mt.actlen = (!ar->precisn && mt.value[0] == '0') ? 0 : ft_strlen(mt.value);
+	mt.actlen = (!ar->precisn && num == 0) ? 0 : ft_strlen(mt.value);
+	mt.zeros = ar->precisn < mt.actlen ? 0 : ar->precisn - mt.actlen;
 	if (mt.isneg)
 		mt.actlen++;
-	mt.zeros = ar->precisn < mt.actlen ? 0 : ar->precisn - mt.actlen;
 	if (((ar->flag.force_sign || ar->flag.space) && !mt.isneg))
 		mt.actlen += 1;
 	*len = ar->width > (mt.actlen + mt.zeros) ? ar->width \
 						: (mt.actlen + mt.zeros);
 	if (ar->flag.zero && !ar->flag.left_jstfed)
-		mt.zeros = *len - mt.actlen;
+		mt.zeros = ar->precisn > 0 ? *len - ar->precisn : *len - mt.actlen;
 	answer = fill_data(ar, mt, *len);
 	ft_strdel(&mt.value);
 	return (answer);
