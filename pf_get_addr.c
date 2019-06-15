@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 08:29:55 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/14 17:41:55 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/15 14:41:23 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ char			*pf_get_addr(t_arg *ar, va_list *list, int *len)
 	int		index;
 
 	m.value = my_ltoa(va_arg(*list, unsigned long), 16);
-	m.actlen = (ar->precisn == 0 && m.value[0] == '0') ? 2 : ft_strlen(m.value) + 2;
+	m.actlen = (ar->precisn == 0 && m.value[0] == '0') ? \
+							2 : ft_strlen(m.value) + 2;
 	m.zeros = ar->precisn < m.actlen ? 0 : ar->precisn - m.actlen;
 	*len = ar->width > m.actlen ? ar->width : m.actlen;
 	index = (ar->flag.left_jstfed) ? 0 : *len - m.actlen;

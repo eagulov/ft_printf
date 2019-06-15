@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 11:49:58 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/14 17:58:31 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/15 14:41:40 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char		*pf_get_hex(t_arg *ar, va_list *list, int *len)
 	*len = ar->width < actlen ? actlen : ar->width;
 	if (ar->flag.zero && !ar->flag.left_jstfed)
 		zeros = *len - actlen;
-
 	answer = ft_strnew(*len);
 	answer = ft_memset(answer, ' ', *len);
 	if (ar->flag.left_jstfed || ar->flag.zero)
