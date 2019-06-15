@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/18 15:30:49 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/11 18:26:02 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/15 15:53:54 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ int		check_format(char *format, va_list *list)
 	if (*format)
 		res += construct(&finalstr, res, format, ft_strlen(format));
 	write(1, finalstr, res);
+	ft_strdel(&finalstr);
 	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/23 15:07:08 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/14 16:05:12 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/15 15:58:34 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,10 @@ int				logic(va_list *list, t_arg *args, char **finalstr, int finallen)
 	{
 		value = function(args, list, &valuelen);
 		valuelen = construct(finalstr, finallen, value, valuelen);
-		ft_memdel((void **)&value);
-		ft_memdel((void **)&args->length);
-		ft_memdel((void **)&args);
+		ft_strdel(&value);
 	}
+	if (args->length)
+		ft_strdel(&args->length);
+	ft_memdel((void **)&args);
 	return (valuelen);
 }
