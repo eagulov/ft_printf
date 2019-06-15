@@ -6,18 +6,37 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/20 19:24:17 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/10 16:52:09 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/14 16:35:21 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	parse_specifier(char **format, t_arg *args)
+void	parse_specifier(char **format, t_arg *ar)
 {
-	args->specifier = **format;
-	if (args->specifier == 'f' && args->precisn == -1)
-		args->precisn = 6;
-	(*format)++;
+	ar->specifier = **format;
+	if ((ar->specifier == 'f' || ar->specifier == 'F') && ar->precisn == -1)
+		ar->precisn = 6;
+	if (ar->specifier == 'O')
+	{
+		if (ar->length)
+			ft_strdel(&ar->length);
+		ar->length = ft_strdup("l");
+	}
+	if (ar->specifier == 'D')
+	{
+		if (ar->length)
+			ft_strdel(&ar->length);
+		ar->length = ft_strdup("l");
+	}
+	if (ar->specifier == 'F')
+	{
+		if (ar->length)
+			ft_strdel(&ar->length);
+		ar->length = ft_strdup("L");
+	}
+	if (get_funcs(ar->specifier))
+		(*format)++;
 }
 
 void	parse_length(char **format, t_arg *args)
@@ -50,19 +69,25 @@ void	parse_precisn(char **format, t_arg *args, va_list *list)
 	while ((**format >= '0' && **format <= '9')
 			|| **format == '+' || **format == '-')
 		(*format)++;
+	if (args->precisn < 0)
+		args->precisn = -1;
 }
 
 void	parse_width(char **format, t_arg *args, va_list *list)
 {
+	if (**format != '*' && !(**format >= '0' && **format <= '9'))
+		return ;
+	args->width = ft_atoi(*format);
+	while ((**format >= '0' && **format <= '9'))
+		(*format)++;
 	if (**format == '*')
 	{
 		args->width = va_arg(*list, int);
+		args->width *= (args->width < 0 && (args->flag.left_jstfed = 1)) ? \
+						-1 : 1;
 		(*format)++;
+		parse_width(format, args, list);
 	}
-	else
-		args->width = ft_atoi(*format);
-	while (**format >= '0' && **format <= '9')
-		(*format)++;
 }
 
 void	parse_flags(char **format, t_arg *args)

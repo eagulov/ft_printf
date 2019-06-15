@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 09:11:48 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/13 15:15:24 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/14 16:45:13 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,26 +23,28 @@ static void		pf_fill_data(char *dest, t_arg *args, int zeros, char *src)
 	dest = ft_strncpy(dest, src, ft_strlen(src));
 }
 
-char			*pf_get_octal(t_arg *args, va_list *list, int *len)
+char			*pf_get_octal(t_arg *ar, va_list *list, int *len)
 {
 	char	*str;
 	char	*answer;
 	int		actlen;
 	int		zeros;
 
-	str = my_ltoa(conversion_unsigned(args, list), 8);
-	actlen = (*str == '0' && !args->width && !args->precisn) ? 0 : ft_strlen(str);
-	zeros = args->precisn < actlen ? 0 : args->precisn - actlen;
-	actlen += ((args->flag.hash) ? 1 : 0) + zeros;
-	*len = args->width < actlen ? actlen : args->width;
-	if (args->flag.zero && !args->flag.left_jstfed)
+	str = my_ltoa(conversion_unsigned(ar, list), 8);
+	actlen = (*str == '0' && !ar->width && !ar->precisn) ? 0 : ft_strlen(str);
+	zeros = ar->precisn < actlen ? 0 : ar->precisn - actlen;
+	actlen += ((ar->flag.hash) ? 1 : 0) + zeros;
+	*len = ar->width < actlen ? actlen : ar->width;
+	if (ar->flag.hash && str[0] == '0')
+		*len = 1;
+	if (ar->flag.zero && !ar->flag.left_jstfed)
 		zeros = *len - actlen;
 	answer = ft_strnew(*len);
 	answer = ft_memset(answer, ' ', *len);
-	if (args->flag.left_jstfed || args->flag.zero)
-		pf_fill_data(answer, args, zeros, str);
+	if (ar->flag.left_jstfed || ar->flag.zero)
+		pf_fill_data(answer, ar, zeros, str);
 	else
-		pf_fill_data(answer + (*len - actlen), args, zeros, str);
+		pf_fill_data(answer + (*len - actlen), ar, zeros, str);
 	ft_strdel(&str);
 	return (answer);
 }

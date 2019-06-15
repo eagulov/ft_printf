@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/23 18:16:17 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/14 12:08:28 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/14 16:13:14 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char			*pf_get_number(t_arg *ar, va_list *list, int *len)
 	t_meta	mt;
 	long	num;
 
+	mt.isneg = 0;
 	num = conversion_signed(ar, list);
 	num *= (num < 0 && (mt.isneg = 1)) ? -1 : 1;
 	mt.value = my_ltoa(num, 10);

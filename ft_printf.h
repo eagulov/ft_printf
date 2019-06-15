@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 13:18:25 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/13 16:25:27 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/14 16:08:26 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void				parse_width(char **format, t_arg *args, va_list *list);
 void				parse_precisn(char **format, t_arg *args, va_list *list);
 void				parse_length(char **format, t_arg *args);
 void				parse_specifier(char **format, t_arg *args);
+t_func				get_funcs(char c);
 int					logic(va_list *list, t_arg *args, char **finalstr,
 																int finallen);
 char				*pf_get_float(t_arg *args, va_list *list, int *len);

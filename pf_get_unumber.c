@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 20:23:49 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/10 16:09:44 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/14 13:17:54 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ static char		*fill_data(t_arg *args, t_meta m, int size)
 
 char			*pf_get_unumber(t_arg *ar, va_list *list, int *len)
 {
-	char	*answer;
-	t_meta	mt;
+	char			*answer;
+	t_meta			mt;
+	unsigned long	num;
 
-	mt.value = my_ltoa(conversion_unsigned(ar, list), 10);
-	mt.isneg = mt.value[0] == '-' ? 1 : 0;
-	mt.actlen = ft_strlen(mt.value);
+	num = conversion_unsigned(ar, list);
+	mt.value = my_ltoa(num, 10);
+	mt.actlen = (!ar->precisn && num == 0) ? 0 : ft_strlen(mt.value);
 	mt.zeros = ar->precisn < mt.actlen ? 0 : ar->precisn - mt.actlen;
 	*len = ar->width > (mt.actlen + mt.zeros) ? ar->width \
 						: (mt.actlen + mt.zeros);

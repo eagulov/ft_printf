@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/23 15:07:08 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/10 17:10:31 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/14 16:05:12 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void		init_funcs(t_func *func)
 	func['u'] = &pf_get_unumber;
 	func['b'] = &pf_get_binary;
 	func['f'] = &pf_get_float;
+	func['F'] = &pf_get_float;
 	func['p'] = &pf_get_addr;
 	func['o'] = &pf_get_octal;
 	func['O'] = &pf_octal_wrapper;
@@ -58,9 +59,9 @@ int				logic(va_list *list, t_arg *args, char **finalstr, int finallen)
 	{
 		value = function(args, list, &valuelen);
 		valuelen = construct(finalstr, finallen, value, valuelen);
+		ft_memdel((void **)&value);
+		ft_memdel((void **)&args->length);
+		ft_memdel((void **)&args);
 	}
-	ft_memdel((void **)&value);
-	ft_memdel((void **)&args->length);
-	ft_memdel((void **)&args);
 	return (valuelen);
 }

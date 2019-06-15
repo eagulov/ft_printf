@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 17:35:43 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/10 17:00:22 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/14 15:53:16 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ char				*pf_get_float(t_arg *ar, va_list *list, int *len)
 	int		index;
 	int		actlen;
 
-	str = my_ftoa((ar->length && ar->length[0] == 'L') ? va_arg(*list, \
-			long double) : va_arg(*list, double), ar->precisn);
+	str = my_ftoa(va_arg(*list, double), ar->precisn);
 	actlen = ft_strlen(str);
 	*len = ar->width > actlen ? ar->width : actlen;
 	answer = ft_strnew(*len);
