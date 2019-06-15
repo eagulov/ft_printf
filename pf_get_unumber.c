@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/25 20:23:49 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/14 13:17:54 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/14 17:24:15 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static char		*fill_data(t_arg *args, t_meta m, int size)
 	i = args->flag.left_jstfed ? 0 : size - (m.actlen + m.zeros);
 	while (m.zeros--)
 		answer[i++] = '0';
-	ft_memcpy(answer + i, m.isneg ? m.value + 1 : m.value, \
-				m.isneg ? m.actlen - 1 : m.actlen);
+	ft_memcpy(answer + i, m.value, m.actlen);
 	return (answer);
 }
 

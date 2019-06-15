@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/26 08:29:55 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/14 17:05:50 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/14 17:41:55 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char			*pf_get_addr(t_arg *ar, va_list *list, int *len)
 	index = (ar->flag.left_jstfed) ? 0 : *len - m.actlen;
 	answer = ft_strnew(*len);
 	answer = ft_memset(answer, ' ', *len);
-	answer = pf_fill_data(answer + index, ar, m);
+	pf_fill_data(answer + index, ar, m);
 	ft_strdel(&m.value);
 	return (my_strlower(answer));
 }
