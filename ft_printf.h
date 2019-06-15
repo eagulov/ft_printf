@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/16 13:18:25 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/14 16:08:26 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/15 14:25:02 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define CONV_TO_L(x) x ? unsigned long : long
 # define CONV_TO_LL(x) x ? unsigned long long : long long
 # define CONV_TO_J(x) x ? uintmax_t : intmax_t
+
+# define FRONT_SPACE(x, y) x.isneg || y->flag.force_sign || y->flag.space
 
 typedef struct		s_flags
 {
