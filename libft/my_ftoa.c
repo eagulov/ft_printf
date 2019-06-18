@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 15:52:39 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/15 13:57:48 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/18 15:58:03 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,13 @@ static char		*get_smaller_ftoa(char *floatpart, int precisn, int iszero)
 	char		*answer;
 	int			length;
 
-	if (iszero)
+	if (iszero && precisn == 0)
+	{
+		length = 1;
+		answer = ft_strnew(length);
+		answer[0] = '0';
+	}
+	else if (iszero)
 	{
 		length = precisn + 2;
 		answer = ft_strnew(length);

@@ -6,7 +6,7 @@
 /*   By: eagulov <eagulov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/08 17:35:43 by eagulov           #+#    #+#             */
-/*   Updated: 2019/06/15 14:33:10 by eagulov          ###   ########.fr       */
+/*   Updated: 2019/06/18 15:54:57 by eagulov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char		*pf_get_float(t_arg *ar, va_list *list, int *len)
 	ft_memset(answer, ar->flag.zero && !ar->flag.left_jstfed ? '0' : ' ', *len);
 	index = ar->flag.left_jstfed ? 0 : *len - m.actlen;
 	pf_handle_sign(answer, &index, m, ar);
-	if (ar->precisn == 0 && ar->flag.hash)
+	if (ar->precisn == 0 && ar->flag.hash && num != 0)
 		*(answer + (--index) + m.actlen) = '.';
 	ft_memcpy(answer + index, m.value, m.isneg ? m.actlen - 1 : m.actlen);
 	ft_strdel(&m.value);
